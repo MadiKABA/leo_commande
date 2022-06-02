@@ -9,16 +9,16 @@ class Connection extends Model
 {
     use HasFactory;
 
-    public function gestionConnection()
+    public static function gestionConnection($requette)
     {
-        $dsn="driver={HFSQL};Server Name=localhost;Serve Port=4900;Database=dbtest;UID=admin; PWD=";
+        $dsn="driver={HFSQL};Server Name=noumkia;Serve Port=4900;Database=dbtest;UID=admin; PWD=";
 
         $conn = odbc_connect($dsn, '', '');
-        return $conn;
-
-
-       
+        ini_set('memory_limit', '-1');
+        $result=odbc_exec($conn,$requette);
+        return $result; 
     }
 
     
 }
+

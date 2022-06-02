@@ -4,14 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Connection;
 
 class Persons extends Controller 
 {
+ 
+
     public function index()
     {
-      
-        $persones=DB::select(DB::raw("select * from Persons"));
-        return view('persones', ['persones' => $persones]);
+        $connection=new Connection();
+        $conn=$connection->gestionConnection();
+        $req= $req = "select * from etudiants;";
+        $etudiants=odbc_exec($conn,$req);
+        //$persones=DB::select(DB::raw("select * from Persons"));
+        return view('persones', ['etudiants' => $etudiants]);
        
        
     }

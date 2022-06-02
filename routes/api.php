@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\ClavierController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('etudiants',EtudiantController::class);
+Route::apiResource('claviers',ClavierController::class);

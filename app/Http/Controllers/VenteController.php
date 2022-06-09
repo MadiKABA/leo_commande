@@ -14,7 +14,8 @@ class VenteController extends Controller
      */
     public function index()
     {
-        $table="data_histo_histo_j20180920";
+        //$table="data_histo_HistoEnt_J20180920";
+        $table="data_histo_bases_j20180920";
         return Models::getAll($table);
     }
 

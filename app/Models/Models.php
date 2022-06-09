@@ -13,16 +13,18 @@ class Models extends Model
     {
         $req= $req = "select * from $table";
         $resultats=Connection::gestionConnection($req);
-        if($resultats==null)
-        {
-            return $table.'est vide';
-        }else {
-            while ($resultat = odbc_fetch_array($resultats)) {
-                $data[] = json_encode($resultat);
-            }
-            return response()->json($data);
+        while ($resultat = odbc_fetch_array($resultats)) {
+            $data[] = json_encode($resultat);
         }
-       
+        if(!empty($data))
+        {
+            return response()->json($data);
+        }else {
+            
+            return "la table $table est vide";
+            
+        }
+        
     }
 
     public static function store($data)

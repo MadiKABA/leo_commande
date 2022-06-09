@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Models;
-use App\Models\Connection;
 
-class ClavierController extends Controller
+class ProduitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,6 @@ class ClavierController extends Controller
      */
     public function index()
     {
-        //$table="boutique_data_Clavier";
         $table="data_produits";
         return  Models::getAll($table);
     }
@@ -28,19 +26,7 @@ class ClavierController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->all();
-        //$json_data=json_decode(\json_encode($data));
-        $nom=json_decode($data['nom']);
-        $email=json_decode(json_encode($data['email']));
-        $json_data=json_encode($data);
-        $etudiant=json_decode($json_data);
-        echo 'Nom: '.$etudiant->nom.' Email: '.$etudiant->email;
-        $req="INSERT INTO etudiants(nom,email) VALUES('$etudiant->nom','$etudiant->email');";
-        //dd($req);
-        $resultat=Connection::gestionConnection($req);
-
-        echo $resultat;
-
+        //
     }
 
     /**

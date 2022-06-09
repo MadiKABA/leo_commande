@@ -13,9 +13,20 @@ class Models extends Model
     {
         $req= $req = "select * from $table";
         $resultats=Connection::gestionConnection($req);
-        while ($resultat = odbc_fetch_array($resultats)) {
-            $data[] = json_encode($resultat);
+        if($resultats==null)
+        {
+            return $table.'est vide';
+        }else {
+            while ($resultat = odbc_fetch_array($resultats)) {
+                $data[] = json_encode($resultat);
+            }
+            return response()->json($data);
         }
-        return response()->json($data);
+       
+    }
+
+    public static function store($data)
+    {
+        
     }
 }

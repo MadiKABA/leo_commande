@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Models;
+use App\Models\Produit;
 
 class ProduitController extends Controller
 {
+   
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +16,7 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        $table="data_produits";
-        return  Models::getAll($table);
+        return  Produit::getAll();
     }
 
     /**

@@ -16,7 +16,7 @@ class ClavierController extends Controller
     public function index()
     {
         //$table="boutique_data_Clavier";
-        $table="data_produits";
+        $table="etudiants";
         return  Models::getAll($table);
     }
 

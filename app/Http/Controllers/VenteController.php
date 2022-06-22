@@ -3,64 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Models;
-
+use App\Models\Vente;
 class VenteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function reglement($jour)
     {
-        //$table="data_histo_HistoEnt_J20180920";
-        $table="data_histo_bases_j20180920";
-        return Models::getAll($table);
+        return Vente::reglement($jour);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function bases($jour)
     {
-        //
+        return Vente::bases($jour);
+    }
+    public function histo($jour)
+    {
+        return Vente::histo($jour);
+    }
+    public function histoEnt($jour)
+    {
+        return Vente::histoEnt($jour);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function notes($jour)
     {
-        //
+        return Vente::notes($jour);
+    }
+    public function notesEnt($jour)
+    {
+        return Vente::notesEnt($jour);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function notesReglement($jour)
     {
-        //
+        return Vente::notesReglement($jour);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function ventes($jour)
     {
-        //
+        return Vente::vente($jour);
     }
 }

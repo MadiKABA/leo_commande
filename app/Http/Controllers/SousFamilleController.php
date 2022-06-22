@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Models;
+use App\Models\SousFamille;
 
 class SousFamilleController extends Controller
 {
@@ -14,8 +14,7 @@ class SousFamilleController extends Controller
      */
     public function index()
     {
-        $table="data_SOUS_FAMILLE";
-        return Models::getAll($table);
+        return SousFamille::getAll();
     }
 
     /**

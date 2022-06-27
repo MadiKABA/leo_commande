@@ -15,7 +15,21 @@ class Famille extends Model
         $table="data_famille";
         return Models::getAll($table);
     }
-
+    public static function getById($cleprod)
+    {
+        $select='SELECT * FROM data_famille WHERE data_famille.FACLEUNIK='.$cleprod;
+        $resultats=Connection::gestionConnection($select);
+        while ($resultat = odbc_fetch_array($resultats)) {
+           
+            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+        }
+        if(empty($data))
+        {
+            return null;
+        }else {
+            return response()->json($data);
+        }
+    }
     public static function add($data)
     {
         $nom=json_decode(json_encode($data['NOM']));

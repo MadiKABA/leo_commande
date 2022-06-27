@@ -16,4 +16,36 @@ class Produit extends Model
         $table="data_produits";
         return Models::getAll($table);
     }
+
+    public static function getById($cleprod)
+    {
+        $select='SELECT * FROM data_produits WHERE data_produits.PRCLEUNIK='.$cleprod;
+        $resultats=Connection::gestionConnection($select);
+        while ($resultat = odbc_fetch_array($resultats)) {
+           
+            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+        }
+        if(empty($data))
+        {
+            return null;
+        }else {
+            return response()->json($data);
+        }
+    }
+
+    public static function getByFamilly($facleuink)
+    {
+        $select='SELECT * FROM data_produits WHERE data_produits.FACLEUNIK='.$facleuink;
+        $resultats=Connection::gestionConnection($select);
+        while ($resultat = odbc_fetch_array($resultats)) {
+           
+            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+        }
+        if(empty($data))
+        {
+            return null;
+        }else {
+            return response()->json($data);
+        }
+    }
 }

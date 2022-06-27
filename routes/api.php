@@ -35,7 +35,7 @@ Route::apiResource('sousFamilles',SousFamilleController::class);
 Route::apiResource('mouvements',MouvementsController::class);
 
 
-Route::get('vente/reglements/{jour}',[VenteController::class,'reglement']);
+Route::get('mouvements/getEntree/{entree}',[MouvementsController::class,'getByEntree']);
 Route::get('vente/bases/{jour}',[VenteController::class,'bases']);
 Route::get('vente/histo/{jour}',[VenteController::class,'histo']);
 Route::get('vente/histoEnt/{jour}',[VenteController::class,'histoEnt']);

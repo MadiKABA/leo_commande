@@ -44,9 +44,35 @@ class Mouvements extends Model
        
     }
 
-    public static function updateQtiteProd($data){
-        $json_data=json_encode($data);
-        $famille=json_decode($json_data);
+    public static function getByEntree($entree){
 
+        $select='SELECT * FROM data_Mouvements WHERE data_Mouvements.entree='.$entree;
+        $resultats=Connection::gestionConnection($select);
+        while ($resultat = odbc_fetch_array($resultats)) {
+           
+            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+        }
+        if(empty($data))
+        {
+            return null;
+        }else {
+            return response()->json($data);
+        }
+    }
+
+    public static function getByPeriod(){
+
+        $select="SELECT * FROM data_Mouvements WHERE data_Mouvements.date_mvt BETWEEN '2022-06-09' AND '2024-01-01'";
+        $resultats=Connection::gestionConnection($select);
+        while ($resultat = odbc_fetch_array($resultats)) {
+           
+            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+        }
+        if(empty($data))
+        {
+            return null;
+        }else {
+            return response()->json($data);
+        }
     }
 }

@@ -38,7 +38,7 @@ class ProduitController extends Controller
      */
     public function show($id)
     {
-        //
+        return  Produit::getByFamilly($id);
     }
 
     /**

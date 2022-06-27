@@ -37,7 +37,7 @@ class FamilleController extends Controller
      */
     public function show($id)
     {
-        //
+        return Famille::getById($id);
     }
 
     /**

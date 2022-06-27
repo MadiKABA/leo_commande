@@ -15,7 +15,7 @@ class MouvementsController extends Controller
     public function index()
     {
         echo"mouvements";
-        return Mouvements::getAll();
+        return Mouvements::getByPeriod();
     }
 
     /**
@@ -38,7 +38,18 @@ class MouvementsController extends Controller
      */
     public function show(Mouvements $mouvements)
     {
-        //
+       
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getByEntree($entree)
+    {
+        return Mouvements::getByEntree($entree);
     }
 
     /**

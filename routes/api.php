@@ -9,6 +9,7 @@ use App\Http\Controllers\FamilleController;
 use App\Http\Controllers\SousFamilleController;
 use App\Http\Controllers\VenteController;
 use App\Http\Controllers\ClavierController;
+use App\Http\Controllers\MouvementsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::apiResource('produits',ProduitController::class);
 Route::apiResource('categories',CategorieController::class);
 Route::apiResource('familles',FamilleController::class);
 Route::apiResource('sousFamilles',SousFamilleController::class);
+Route::apiResource('mouvements',MouvementsController::class);
 
 
 Route::get('vente/reglements/{jour}',[VenteController::class,'reglement']);

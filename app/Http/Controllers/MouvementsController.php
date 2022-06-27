@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mouvements;
 use Illuminate\Http\Request;
-use App\Models\Models;
-use App\Models\Connection;
 
-class ClavierController extends Controller
+class MouvementsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,8 @@ class ClavierController extends Controller
      */
     public function index()
     {
-        //$table="boutique_data_Clavier";
-        $table="etudiants";
-        return  Models::getAll($table);
+        echo"mouvements";
+        return Mouvements::getAll();
     }
 
     /**
@@ -29,18 +27,16 @@ class ClavierController extends Controller
     public function store(Request $request)
     {
         $data=$request->all();
-        //$json_data=json_decode(\json_encode($data));
-        
-
+        return Mouvements::add($data);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Mouvements  $mouvements
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Mouvements $mouvements)
     {
         //
     }
@@ -49,10 +45,10 @@ class ClavierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Mouvements  $mouvements
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Mouvements $mouvements)
     {
         //
     }
@@ -60,10 +56,10 @@ class ClavierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Mouvements  $mouvements
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Mouvements $mouvements)
     {
         //
     }

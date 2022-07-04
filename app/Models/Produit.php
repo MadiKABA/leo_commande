@@ -23,29 +23,31 @@ class Produit extends Model
         $resultats=Connection::gestionConnection($select);
         while ($resultat = odbc_fetch_array($resultats)) {
            
-            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            //$data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            $data[]= json_encode(array_map("utf8_encode", $resultat));
         }
         if(empty($data))
         {
             return null;
         }else {
-            return response()->json($data);
+            return $data;
         }
     }
 
-    public static function getByFamilly($facleuink)
+    public static function getByFamilly($facleunik)
     {
-        $select='SELECT * FROM data_produits WHERE data_produits.FACLEUNIK='.$facleuink;
+        $select='SELECT * FROM data_produits WHERE data_produits.FACLEUNIK='.$facleunik.'limit 200';
         $resultats=Connection::gestionConnection($select);
         while ($resultat = odbc_fetch_array($resultats)) {
            
-            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            //$data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            $data[]= json_encode(array_map("utf8_encode", $resultat));
         }
         if(empty($data))
         {
             return null;
         }else {
-            return response()->json($data);
+            return $data;
         }
     }
 }

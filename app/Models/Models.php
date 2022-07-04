@@ -12,17 +12,18 @@ class Models extends Model
    
     public static function getAll($table)
     {
-        $req="select * from $table";
+        $req="select * from $table limit 200";
         $resultats=Connection::gestionConnection($req);
         while ($resultat = odbc_fetch_array($resultats)) {
             
-            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            //$data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            $data[]= json_encode(array_map("utf8_encode", $resultat));
         }
         if(empty($data))
         {
             return 'table vide';
         }else {
-            return response()->json($data);
+            return $data;
         }
         
     }

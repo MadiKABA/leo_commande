@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Models;
 use App\Models\Produit;
+use App\Models\Famille;
 
 class ProduitController extends Controller
 {
@@ -16,7 +17,11 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        return  Produit::getAll();
+        $page=2;
+        $produits=Produit::getAll($page);
+        $familles=Famille::getAll();
+        return view('produits.list',compact('produits','familles'));
+        //return $produits;
     }
 
     /**
@@ -38,9 +43,23 @@ class ProduitController extends Controller
      */
     public function show($id)
     {
-        return  Produit::getByFamilly($id);
+        $produit= Produit::getById($id);
+        return view('produits.show',compact('produit'));
+        //return Produit::getById($id);
     }
-
+     /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getByFamilly(Request $request){
+        $famille=$request["famille"];
+        //dd($famille);
+        $produits=Produit::getByFamilly($famille);
+        $familles=Famille::getAll();
+        return view('produits.list',compact('produits','familles'));
+    }
     /**
      * Update the specified resource in storage.
      *

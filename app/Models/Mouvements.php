@@ -16,63 +16,65 @@ class Mouvements extends Model
         return Models::getAll($table);
     }
 
-    public static function add($data)
+    public static function add($mouvement)
     {
-        $json_data=json_encode($data);
-        $famille=json_decode($json_data);
-        //dd($famille->date_mvt);
-        $date_mvt = date('Ymd',strtotime($famille->date_mvt));
-        $req="INSERT INTO data_Mouvements(PRCLEUNIK,LibProd,date_mvt,entree,type_mvt,Quantite,montant,ref_mvt,Observations,pmp,PrixAchat,PrixVente) 
-        VALUES('$famille->PRCLEUNIK','$famille->LibProd',$date_mvt,$famille->entree,'$famille->type_mvt','$famille->Quantite','$famille->montant','$famille->ref_mvt',
-        '$famille->Observations','$famille->pmp','$famille->PrixAchat','$famille->PrixVente');";
-    
-       //$resultat=Connection::gestionConnection($req);
-             
-      if(QtiteProd::getQteProd($famille->PRCLEUNIK)==null)
+        //$mouvement=json_decode($data,true);
+        //dd($mouvement);
+        $date_mvt = date('Ymd',strtotime($mouvement->date_mvt));
+        //dd($mouvement->PrixVente);
+        $req="INSERT INTO data_Mouvements(PRCLEUNIK,LibProd,date_mvt,entree,type_mvt,Quantite,montant,ref_mvt,Observations,pmp,PrixAchat,PrixVente)
+        VALUES('$mouvement->PRCLEUNIK','$mouvement->LibProd','$date_mvt',$mouvement->entree,'$mouvement->type_mvt','$mouvement->Quantite','$mouvement->montant','$mouvement->ref_mvt',
+        '$mouvement->Observations','$mouvement->pmp','$mouvement->PrixAchat','$mouvement->PrixVente');";
+
+       $resultat=Connection::gestionConnection($req);
+
+
+      if(QtiteProd::getQteProd($mouvement->PRCLEUNIK)==null)
       {
-        return QtiteProd::addQteProd($famille->PRCLEUNIK,$famille->Quantite,$date_mvt);
+        return QtiteProd::addQteProd($mouvement->PRCLEUNIK,$mouvement->Quantite,$date_mvt);
         //return "table vide";
       }else{
-        if($famille->entree)
+        if($mouvement->entree)
         {
-            return QtiteProd::updateEntreeQteProd($famille->Quantite,$famille->PRCLEUNIK);
+            return QtiteProd::updateEntreeQteProd($mouvement->Quantite,$mouvement->PRCLEUNIK);
         }else{
-            return QtiteProd::updateSortieQteProd($famille->Quantite,$famille->PRCLEUNIK);
+            return QtiteProd::updateSortieQteProd($mouvement->Quantite,$mouvement->PRCLEUNIK);
         }
-        //return QtiteProd::getQteProd($famille->PRCLEUNIK);
+        //return QtiteProd::getQteProd($mouvement->PRCLEUNIK);
       }
-       
+      //return $resultat;
+
     }
 
     public static function getByEntree($entree){
 
-        $select='SELECT * FROM data_Mouvements WHERE data_Mouvements.entree='.$entree;
+        $select='SELECT * FROM mouvement_Mouvements WHERE mouvement_Mouvements.entree='.$entree;
         $resultats=Connection::gestionConnection($select);
         while ($resultat = odbc_fetch_array($resultats)) {
-           
-            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+
+            $mouvement[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
         }
-        if(empty($data))
+        if(empty($mouvement))
         {
             return null;
         }else {
-            return response()->json($data);
+            return response()->json($mouvement);
         }
     }
 
     public static function getByPeriod(){
 
-        $select="SELECT * FROM data_Mouvements WHERE data_Mouvements.date_mvt BETWEEN '2022-06-09' AND '2024-01-01'";
+        $select="SELECT * FROM mouvement_Mouvements WHERE mouvement_Mouvements.date_mvt BETWEEN '2022-06-09' AND '2024-01-01'";
         $resultats=Connection::gestionConnection($select);
         while ($resultat = odbc_fetch_array($resultats)) {
-           
-            $data[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+
+            $mouvement[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
         }
-        if(empty($data))
+        if(empty($mouvement))
         {
             return null;
         }else {
-            return response()->json($data);
+            return response()->json($mouvement);
         }
     }
 }

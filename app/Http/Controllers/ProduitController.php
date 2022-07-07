@@ -19,8 +19,9 @@ class ProduitController extends Controller
     {
         $page=2;
         $produits=Produit::getAll($page);
+        $nbrePage=Produit::getCount();
         $familles=Famille::getAll();
-        return view('produits.list',compact('produits','familles'));
+        return view('produits.list',compact('produits','familles','nbrePage'));
         //return $produits;
     }
 
@@ -48,6 +49,18 @@ class ProduitController extends Controller
         //return Produit::getById($id);
     }
      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function pagedList($id)
+    {
+        $produits=Produit::pagedList($id);
+        $familles=Famille::getAll();
+        return view('produits.list',compact('produits','familles'));
+    }
+     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,6 +72,21 @@ class ProduitController extends Controller
         $produits=Produit::getByFamilly($famille);
         $familles=Famille::getAll();
         return view('produits.list',compact('produits','familles'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getByName(Request $request){
+        $nom_court=strtoupper($request["nom_court"]);
+        //dd($nom_court);
+        $produits=Produit::getByName($nom_court);
+        $familles=Famille::getAll();
+        return view('produits.list',compact('produits','familles','nom_court'));
+       
     }
     /**
      * Update the specified resource in storage.

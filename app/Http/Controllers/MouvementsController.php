@@ -63,14 +63,36 @@ class MouvementsController extends Controller
         Mouvements::add($djs);
         return view('mouvements.entreStock');
     }
-    public function SaveEntreStock()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getByPeriod(Request $request)
     {
-        $client = new Client();
-        //$url = "http://127.0.0.1:8000/api/mouvements";
-        $url = "http://127.0.0.1:8082/api/mouvements";
-        $response = Http::get($url)->json();
-        dd($response);
-        return view('mouvements.entreStock',compact("responseBody"));
+        $datedebut=$request["datedebut"];
+        $datedefin=$request["datefin"];
+        $mouvements=Mouvements::getByPeriod($datedebut,$datedefin);
+        //dd($mouvements);
+        return view('mouvements.list',compact('mouvements'));
+        
+       
+    }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getByEntree(Request $request)
+    {
+        $entree=(int)$request["entree"];
+       
+        $mouvements=Mouvements::getByEntree($entree);
+       // dd($mouvements);
+        return view('mouvements.list',compact('mouvements'));
+        
     }
     /**
      * Display the specified resource.
@@ -81,17 +103,6 @@ class MouvementsController extends Controller
     public function show(Mouvements $mouvements)
     {
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function getByEntree($entree)
-    {
-        return Mouvements::getByEntree($entree);
     }
 
     /**

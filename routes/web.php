@@ -26,8 +26,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('produits',[ProduitController::class,'index']);
+Route::get('produits',[ProduitController::class,'index'])->name("produits.index");
+Route::post('produits',[ProduitController::class,'getByName'])->name("produits.getByName");
+Route::get('pagedProduit/{id}',[ProduitController::class,'pagedList'])->name("produit.pagedList");
 Route::get('produits/{id}',[ProduitController::class,'show'])->name('produits.show');
 Route::post('produitsByFamille',[ProduitController::class,'getByFamilly'])->name('produits.getByFamilly');
-Route::get('mouvements}',[MouvementsController::class,'index']);
-Route::get('mouvementsEntreStock}',[MouvementsController::class,'EntreStock']);
+Route::get('mouvements',[MouvementsController::class,'index'])->name("mouvement.index");
+Route::get('mouvementsEntreStock}',[MouvementsController::class,'EntreStock'])->name("mouvements.EntreStock");
+Route::post('mouvementsgetEntree',[MouvementsController::class,'getByEntree'])->name("mouvements.getEntree");
+Route::post('mouvementsgetByPeriod',[MouvementsController::class,'getByPeriod'])->name("mouvements.getByPeriod");
+
+Route::fallback(function() {
+    return view('404'); // la vue 404.blade.php
+ });

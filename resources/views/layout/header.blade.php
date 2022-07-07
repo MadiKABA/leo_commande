@@ -81,7 +81,7 @@
               <span>Historique</span>
               </a>
             <ul class="sub">
-              <li><a href="mouvements}">list</a></li>
+              <li><a href="{{route('mouvement.index')}}">list</a></li>
               <li><a href="formAddEntreprise">add</a></li>
             </ul>
           </li>
@@ -91,7 +91,7 @@
               <span>Produits</span>
               </a>
             <ul class="sub">
-              <li><a href="produits">list</a></li>
+              <li><a href="{{route('produits.index')}}">list</a></li>
               <li><a href="formAddEntreprise">add</a></li>
             </ul>
           </li>

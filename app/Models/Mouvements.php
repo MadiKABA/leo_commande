@@ -48,33 +48,38 @@ class Mouvements extends Model
 
     public static function getByEntree($entree){
 
-        $select='SELECT * FROM mouvement_Mouvements WHERE mouvement_Mouvements.entree='.$entree;
+        $select='SELECT * FROM data_Mouvements WHERE data_Mouvements.entree='.$entree;
         $resultats=Connection::gestionConnection($select);
         while ($resultat = odbc_fetch_array($resultats)) {
 
-            $mouvement[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            //$mouvement[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            $mouvement[]=json_encode(array_map("utf8_encode", $resultat));
         }
         if(empty($mouvement))
         {
             return null;
         }else {
-            return response()->json($mouvement);
+            //return response()->json($mouvement);
+            return $mouvement;
         }
     }
 
-    public static function getByPeriod(){
+    public static function getByPeriod($datedebut,$datefin){
+        $datedebutFormat = date('Ymd',strtotime($datedebut));
+        $datefinFormat = date('Ymd',strtotime($datefin));
 
-        $select="SELECT * FROM mouvement_Mouvements WHERE mouvement_Mouvements.date_mvt BETWEEN '2022-06-09' AND '2024-01-01'";
+        $select="SELECT * FROM data_Mouvements WHERE data_Mouvements.date_mvt BETWEEN $datedebutFormat AND $datefinFormat";
         $resultats=Connection::gestionConnection($select);
         while ($resultat = odbc_fetch_array($resultats)) {
 
-            $mouvement[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            //$mouvement[]= json_decode(json_encode(array_map("utf8_encode", $resultat)),JSON_UNESCAPED_SLASHES);
+            $mouvement[]=json_encode(array_map("utf8_encode", $resultat));
         }
         if(empty($mouvement))
         {
             return null;
         }else {
-            return response()->json($mouvement);
+            return $mouvement;
         }
     }
 }
